@@ -22,7 +22,6 @@ $ deactivate
 $ source .venv/bin/activate
 
 $ mkdir -p ./collections/ansible_collections/amazon/cloud
-$ ansible-playbook -i hosts build.yaml -e manifest_file=MANIFEST.yaml
 
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip
@@ -37,10 +36,14 @@ Default output format [None]:
 # To auto-generate modules.yaml:
 
 ```
-aws cloudformation list-types --visibility PUBLIC --type RESOURCE --query "TypeSummaries[*].[TypeName,Description]" --output json > types.json
-aws cloudformation list-types --visibility PUBLIC --type RESOURCE --query "TypeSummaries[?contains(TypeName, 'EC2')].[TypeName,Description]" --output json > types.json
-./create_modulesyaml.py
-mkdir config
-cp modules.yaml config
-ansible-playbook -i hosts build.yaml -e manifest_file=MANIFEST.yaml
+$ aws cloudformation list-types --visibility PUBLIC --type RESOURCE --query "TypeSummaries[*].[TypeName,Description]" --output json > types.json
+$ aws cloudformation list-types --visibility PUBLIC --type RESOURCE --query "TypeSummaries[?contains(TypeName, 'EC2')].[TypeName,Description]" --output json > types.json
+$ ./create_modulesyaml.py
+$ mkdir config api_specifications
+$ cp modules.yaml config
+```
+
+# To generate the collection:
+```
+$ ansible-playbook -i hosts build.yaml -e manifest_file=MANIFEST.yaml
 ```
