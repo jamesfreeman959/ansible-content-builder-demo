@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: yes
+  vars:
+    ansible_python_interpreter: ./.venv/bin/python3
+
+  pre_tasks:
+    - debug:
+        var: ansible_python_interpreter
+
+  roles:
+    - ansible.content_builder.run

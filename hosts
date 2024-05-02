@@ -1,0 +1,6 @@
+[builder]
+localhost
+
+[builder:vars]
+ansible_python_interpreter=./.venv/bin/python3
+ansible_connection=local
